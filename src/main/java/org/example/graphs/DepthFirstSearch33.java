@@ -12,13 +12,17 @@ public class DepthFirstSearch33 {
     private int s; //vertice inicial
 
 
-    public DepthFirstSearch33(Graph g, int s){
+    public DepthFirstSearch33(Digraph g, int s){
         this.s = s;
         //inicializar vetores
         marked = new boolean[g.V()];
         edgeTo = new int[g.V()];
         //comeca o caminhamento
-        dfs(g, s);
+        for(int i = 0; i < g.getV(); i++) {
+            if(!hasPathTo(i)) {
+                dfs(g, i);
+            }
+        }
     }
 
     //Se tem caminho?! diz se tem caminh ou nao
@@ -27,7 +31,7 @@ public class DepthFirstSearch33 {
     }
 
     // quem é o caminho
-    public ArrayList<Integer> pathTo (int v){
+    public ArrayList<Integer> pathTo (int v, int s){
         //verificar - validar - se tem o caminho
         if (!hasPathTo(v)){
             return null;
@@ -42,11 +46,9 @@ public class DepthFirstSearch33 {
         return path;
     }
 
-    public void dfs(Graph g, int v){
+    public void dfs(Digraph g, int v){
         //1. marcar visitado
         //2. chamar recursivamente, os que não foram visitados e sao adjacentes.
-      // System.out.println("Estou em v: " + v);
-
         marked[v] = true;
         for (int w : g.adj(v)){
             // CHAMA RECURSIVO SE NAO ESTIVER MARCADO
@@ -58,45 +60,4 @@ public class DepthFirstSearch33 {
         }
         //System.out.println("Terminei v: " + v);
     }
-
-    public static void main(String[] args) {
-//        Graph G = new Graph(4);
-//        G.addEdge(0, 1);
-//        G.addEdge(1, 2);
-//        G.addEdge(0, 3);
-//        StdOut.println(G)
-//        if (dp.hasPathTo(2)){
-//            for (int v: dp.pathTo(2)){
-//                System.out.println(v + " ");
-//            }
-//        }
-
-        String filename = "tinyG.txt";
-        In in = new In(filename);
-        Graph g = new Graph(in);
-//        StdOut.println(G);
-        DepthFirstSearch33 dp = new DepthFirstSearch33(g, 0);//comecar pelo 0
-//        if (dp.hasPathTo(3)) {
-//            for (int v : dp.pathTo(3)) {
-//                System.out.println(v + " ");
-//            }
-//        }
-
-        System.out.println("Caminhos existentes:");
-        System.out.println("0 : Vértice Inicial");
-        //percorrer todos os vertices
-        for (int v = 1; v < g.V(); v++){
-            //se tem caminho para v, ele passa por cada um dos caminhos
-            if (dp.hasPathTo(v)){
-                System.out.print(v + ": ");
-                for (int w : dp.pathTo(v)){
-                    System.out.print(w + " ");
-                }
-                System.out.println();
-            }
-        }
-
-    }
-
-
 }

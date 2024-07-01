@@ -28,6 +28,8 @@ package org.example.graphs;
  *  
  ******************************************************************************/
 
+import lombok.Data;
+
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -52,6 +54,7 @@ import java.util.Set;
  * @author Marcelo Cohen
  */
 
+@Data
 public class Digraph {
 	private static final String NEWLINE = System.getProperty("line.separator");
 
